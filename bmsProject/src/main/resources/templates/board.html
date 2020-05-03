@@ -1,0 +1,39 @@
+<div th:replace="shared/header"></div>
+
+<div class="box">
+    <div class="box-header with-border">
+        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Employee Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="activity:${activities}">
+                    <td th:text="${activity.id}"></td>
+                    <td><table><tr>
+                                <td th:text="${activity.employee.firstName}"></td>
+                                <td th:text="${activity.employee.lastName}"></td>
+                     </tr></table></td>
+                    <td>
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${activity.id}}" class="btn btn-warning btn-xs" title="Details">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </a>
+                    </td>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div th:replace="shared/footer"></div>

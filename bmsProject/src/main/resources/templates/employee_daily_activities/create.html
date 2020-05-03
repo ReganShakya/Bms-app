@@ -1,0 +1,75 @@
+
+<div th:replace="shared/header"></div>
+<div class="box box-primary">
+    <form role="form" method="post" th:action="@{'/'+${pageURI}}">
+
+        <div class="box-body">
+            <div class="form-group">
+                <label>Employee Name</label>
+                <select name="employee" class="form-control" required/>
+                <option value="">Select Name</option>
+                <option th:each="emp:${emps}" th:value="${emp.id}" th:text="${emp.firstName}">Select Employee Name</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="box-body">
+            <div class="form-group">
+                <label>Activity</label>                
+                <select name="task" class="form-control" required/>
+                <option value="">Select Activity</option>
+                <option  th:each="tsk:${tsks}" th:value="${tsk.id}" th:rel="${tsk.rate}" th:text="${tsk.name}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" name="quantity" id="qty" class="form-control" required/>
+            </div>
+        </div>
+
+        <div class="box-body">
+        <div class="form-group">
+                <label>Rate</label>                
+                <select name="rate" class="form-control" required/>
+                <option value="">Select Rate</option>
+                <option th:each="tsk:${tsks}" th:value="${tsk.rate}" th:text="${tsk.rate}"></option>
+                </select>
+            </div>
+        </div>  
+        
+        <div class="box-body">
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="text" id="amt" name="amount" class="form-control" required/>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a th:href="@{'/'+${pageURI}}" class="btn btn-danger">Back</a>
+        </div>
+    </form>
+</div>
+
+
+
+<div th:replace="shared/footer"></div>
+
+<script>
+    $(document).ready(function(){
+       $('select[name=task]').on('change',function(){
+           var rate=$(this).find('option:selected').attr('rel');
+           $('select[name=rate]').val(rate);
+       });
+       
+       $('#qty').on('keyup',function(){
+          $('#amt').val($(this).val() * $('select[name=rate]').val()); 
+       });
+       
+       
+    });
+</script>
