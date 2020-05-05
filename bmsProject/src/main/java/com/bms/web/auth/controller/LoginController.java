@@ -8,6 +8,7 @@ package com.bms.web.auth.controller;
 import com.bms.web.core.controller.SiteController;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +26,7 @@ public class LoginController extends SiteController{
     
     
     @GetMapping
-    public String index(){
+    public String index(Model model){
         return "login";
     }
     
