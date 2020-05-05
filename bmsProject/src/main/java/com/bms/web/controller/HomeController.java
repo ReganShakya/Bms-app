@@ -36,7 +36,7 @@ public class HomeController extends SiteController{
     @Autowired
     private TaskRepository tskRepository;
     
-    @GetMapping
+    @GetMapping(value = {"/","index"})
     public String index(){
         return "index";
     }

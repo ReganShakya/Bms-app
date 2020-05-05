@@ -5,18 +5,20 @@
  */
 package com.bms.web.auth.entity;
 
+import com.bms.web.auth.repository.UserRepository;
 import com.bms.web.core.entity.MasterEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="tbl_users")
 public class User extends MasterEntity{
+    
     @Column(name = "username")
     private String userName;
     @Column(name = "password")
@@ -93,6 +96,13 @@ public class User extends MasterEntity{
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+    
+    public List<String> getRoleList(){
+        if(this.role.getName().length() > 0){
+            return Arrays.asList(this.role.getName().split(","));
+        }
+        return new ArrayList<>();
     }
     
 }
