@@ -1,7 +1,7 @@
 <div th:replace="shared/header"></div>
 
 <div class="box">
-    <div class="box-header with-border">
+    <div sec:authorize='hasRole("ROLE_ADMIN")' class="box-header with-border">
         <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
@@ -14,7 +14,7 @@
                     <th>Id</th>
                     <th>Task Name</th>
                     <th>Rate</th>
-                    <th>Action</th>
+                    <th sec:authorize='hasRole("ROLE_ADMIN")'>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     <td th:text="${record.id}"></td>
                     <td th:text="${record.name}"></td>
                     <td th:text="${record.rate}"></td>
-                    <td>
+                    <td sec:authorize='hasRole("ROLE_ADMIN")'>
                         <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" class="btn btn-warning btn-xs" title="Edit Task">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>

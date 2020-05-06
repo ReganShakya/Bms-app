@@ -42,7 +42,13 @@
             <span>User/Role/Permission</span>
             
           </a>
-          <ul class="treeview-menu">
+          <ul sec:authorize='hasRole("ROLE_ADMIN")' class="treeview-menu">
+            <li><a href="/roles"><i class="fa fa-circle"></i> Roles</a></li>
+            <li><a href="/users"><i class="fa fa-user"></i> Users</a></li>
+          </ul>
+            
+            
+          <ul sec:authorize='hasRole("ROLE_USER")' class="treeview-menu">
             <li><a href="/roles"><i class="fa fa-circle"></i> Roles</a></li>
             <li><a href="/users"><i class="fa fa-user"></i> Users</a></li>
           </ul>

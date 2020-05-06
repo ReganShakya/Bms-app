@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  *
@@ -40,14 +41,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 //                .antMatchers("/index").permitAll()
-                .antMatchers("/tasks/**").authenticated()
-                .antMatchers("/roles","/users","/tasks","/employees").hasRole("ADMIN")
+                .antMatchers("/tasks","/employees").authenticated()
+                .antMatchers("/roles/**","/users/**","/tasks/**","/employees/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login")
+                .and().formLogin()
+                .loginProcessingUrl("/signin")
+                .loginPage("/login").failureUrl("/login/login-error")
                 .usernameParameter("username").passwordParameter("password")
                 .successHandler(successHandler).permitAll()
-                .and().logout().permitAll()
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
+                .logoutSuccessUrl("/login").permitAll()
                 .invalidateHttpSession(true);
+        
+        http
+            .rememberMe()
+            .tokenValiditySeconds(2592000)
+            .rememberMeParameter("checkRememberMe").userDetailsService(userAuthService);
     }
 
     @Override

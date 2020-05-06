@@ -30,9 +30,16 @@ public class LoginController extends SiteController{
         return "login";
     }
     
-    @GetMapping(value = "/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:login";
+     // Login form with error
+    @RequestMapping("login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
     }
+    
+//    @GetMapping(value = "/logout")
+//    public String logout(HttpSession session){
+//        session.invalidate();
+//        return "redirect:login";
+//    }
 }
