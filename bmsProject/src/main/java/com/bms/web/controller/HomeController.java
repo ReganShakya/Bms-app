@@ -41,16 +41,19 @@ public class HomeController extends SiteController{
     @GetMapping(value = {"/","index"})
     public String index(Model model){
         model.addAttribute("employees",empRepository.findAll());
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String name = auth.getName(); //get logged in username
-//        model.addAttribute("author", name);
-        return "index";
+        model.addAttribute("dailyActivities", activityRepository.findAll());
+        return "dash/index";
     }
     
     @GetMapping(value = "/about")
     public String about(){
-        return "index";
+        return "dash/index";
     }
+    
+//    @GetMapping(value = "/calendar")
+//    public String calendar(){
+//        return "calendar";
+//    }
     
     @GetMapping(value = "/board")
     public String board(Model model){
@@ -58,6 +61,12 @@ public class HomeController extends SiteController{
         model.addAttribute("employees", empRepository.findAll());
         model.addAttribute("tsks", tskRepository.findAll());
         return "board";
+    }
+    
+    @GetMapping(value = "/salary")
+    public String salary(Model model){
+        model.addAttribute("salaries",activityRepository.getSalary());
+        return "salaries/index";
     }
     
 }

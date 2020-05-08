@@ -1,6 +1,7 @@
+
 <div th:replace="shared/header"></div>
      
-          <div sec:authorize="hasRole('ADMIN')">
+<!--          <div sec:authorize="hasRole('ADMIN')">
             This content is only shown to administrators.
           </div>
           <div sec:authorize="hasRole('USER')">
@@ -8,7 +9,7 @@
           </div>
 
 <div sec:authentication="name"></div>
-<div sec:authentication="principal.authorities"></div>
+<div sec:authentication="principal.authorities"></div>-->
       <!-- Info boxes -->
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">

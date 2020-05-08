@@ -49,3 +49,6 @@ values('admin','$2a$10$F4O3kX4K4aYk2eytHvnQCuQGx9pCAE2V2OxDpmhS18Of/XXnlHM16',
 insert into tbl_users(username, password, email,role_id, status)
 values('regan','$2a$10$F4O3kX4K4aYk2eytHvnQCuQGx9pCAE2V2OxDpmhS18Of/XXnlHM16',
 'regan_shakya@gmail.com',1,1);
+
+
+SELECT u.employee_id, a.first_Name, SUM(u.amount) FROM tbl_employees_daily_activities u inner join tbl_employees a on a.id=u.employee_id GROUP BY u.employee_id

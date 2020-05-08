@@ -39,6 +39,8 @@
                         </a>
                         <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs" title="Delete Task">
                             <span class="glyphicon glyphicon-trash"></span>
+                        </a><a th:href="@{'/'+${pageURI}+'/activity/'+${record.id}}" title="Activity Details">
+                            <span class="glyphicon glyphicon-info-sign"></span>
                         </a>
                     </td>
                 </tr>

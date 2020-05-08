@@ -31,9 +31,16 @@ public class EmployeeDailyActivities extends MasterEntity{
     @ManyToOne
     private Employee employee;
     
+    @Column(name = "employee_id",insertable = false, updatable = false)
+    private int employeeId;
+    
     @JoinColumn(name="task_id", referencedColumnName = "id")
     @ManyToOne
     private Task task;
+    
+    @Column(name = "task_id", insertable = false, updatable = false)
+    private int taskId;
+    
     @Column(name = "quantity")
     private int quantity;
     @Column(name = "amount")
@@ -77,6 +84,22 @@ public class EmployeeDailyActivities extends MasterEntity{
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
     
     

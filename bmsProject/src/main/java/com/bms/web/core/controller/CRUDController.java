@@ -5,6 +5,7 @@
  */
 package com.bms.web.core.controller;
 
+import com.bms.web.activities.repository.EmployeeDailyActivitiesRepository;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public abstract class CRUDController<T, Id>
     @Autowired
     protected JpaRepository<T, Id> repository;
     protected String viewPath;
+    
+    @Autowired
+    private EmployeeDailyActivitiesRepository activitiesRepository;
 
     public CRUDController() {
     }
@@ -84,4 +88,10 @@ public abstract class CRUDController<T, Id>
     public T json(@PathVariable("id") Id id){
         return repository.findById(id).get();
     }
+//    
+//   @GetMapping(value = "activity")
+//    public String activity(){
+////        model.addAttribute("dailyActivities", activitiesRepository.findByEmployeeId(id));
+//        return "activity";
+//    }
 }

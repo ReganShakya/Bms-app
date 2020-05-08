@@ -5,9 +5,6 @@
  */
 package com.bms.web.master.entity;
 
-//import com.bms.web.activities.entity.EmployeesDailyActivities;
-import com.bms.web.activities.entity.EmployeeDailyActivities;
-import com.bms.web.auth.entity.User;
 import com.bms.web.core.entity.MasterEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
@@ -16,7 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,6 +43,7 @@ public class Employee extends MasterEntity{
         joinColumns = {@JoinColumn(name = "employee_id")},
         inverseJoinColumns = {@JoinColumn(name = "task_id")}
     )
+    
     private List<Task> tasks;
     
     public Employee() {
@@ -110,6 +108,4 @@ public class Employee extends MasterEntity{
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
-
-    
 }
