@@ -1,8 +1,8 @@
 <div th:replace="shared/header"></div>
 
-<div class="box">
+<div class="box" sec:authorize="hasRole('ROLE_ADMIN')">
     <div class="box-header with-border">
-        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
+        <a th:href="@{'/'+${pageURI}+'/create'}" title="Create new Task">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -17,7 +17,7 @@
                     <th>Task</th>
                     <th>Quantity</th>
                     <th>Amount</th>
-                    <th>Action</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,26 +25,68 @@
                     <td th:text="${record.id}"></td>
                     <td th:text="${record.workingDate}"></td>
                     <td><table><tr>
-                                <td th:text="${record.employee.firstName}"></td>
-                                <!--<td th:text="${record.employee.lastName}"></td>-->
+                                <td th:text="${record.user.userName}"></td>
+                                <!--<td th:text="${record.user.lastName}"></td>-->
                      </tr></table></td>
                     <td th:text="${record.task.name}"></td>
                     <td th:text="${record.quantity}"></td>
                     <td th:text="${record.amount}"></td>
-                    <td>
-                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" class="btn btn-warning btn-xs" title="Edit Task">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                    <td  sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" title="Edit Details">
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs" title="Delete Task">
-                            <span class="glyphicon glyphicon-trash"></span>
+                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" title="Delete Task">
+                            <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
                 </tr>
-                </c:forEach>
             </tbody>
         </table>
     </div>
 </div>
 
+<div class="box" sec:authorize="hasRole('ROLE_USER')">
+    <div class="box-header with-border">
+        <a th:href="@{'/'+${pageURI}+'/create'}" title="Create new Task">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Employee Name</th>
+                    <th>Task</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="activity:${activities}">
+                    <td th:text="${activity.id}"></td>
+                    <td th:text="${activity.workingDate}"></td>
+                    <td><table><tr>
+                                <td th:text="${activity.user.userName}"></td>
+                                <!--<td th:text="${activity.user.lastName}"></td>-->
+                     </tr></table></td>
+                    <td th:text="${activity.task.name}"></td>
+                    <td th:text="${activity.quantity}"></td>
+                    <td th:text="${activity.amount}"></td>
+                    <td  sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" title="Edit Details">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" title="Delete Task">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div th:replace="shared/footer"></div>

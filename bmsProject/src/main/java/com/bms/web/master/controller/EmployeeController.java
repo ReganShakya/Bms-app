@@ -6,8 +6,10 @@
 package com.bms.web.master.controller;
 
 import com.bms.web.activities.repository.EmployeeDailyActivitiesRepository;
+import com.bms.web.auth.entity.User;
+import com.bms.web.auth.repository.UserRepository;
 import com.bms.web.core.controller.CRUDController;
-import com.bms.web.master.entity.Employee;
+//import com.bms.web.master.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +23,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping(value="/employees")
-public class EmployeeController extends CRUDController<Employee, Integer>{
+public class EmployeeController extends CRUDController<User, Integer>{
     
     @Autowired
     private EmployeeDailyActivitiesRepository activitiesRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     public EmployeeController() {
         super("Employee","master","employees");
         this.viewPath="employees";
     }
     
-   @GetMapping(value = "activity/{id}")
+    @Override
+    @GetMapping
+    public String index(Model model){
+        model.addAttribute("records", userRepository.findByRoleId(2));
+        return viewPath+"/index";
+    }
+    
+    @GetMapping(value = "activity/{id}")
     public String activity(@PathVariable("id") int id, Model model){
-        model.addAttribute("dailyActivities", activitiesRepository.findByEmployeeId(id));
+        model.addAttribute("dailyActivities", activitiesRepository.findByUserId(id));
         return "employees/activity";
     }
 }

@@ -42,6 +42,11 @@ status boolean);
 alter table tbl_users add foreign key (role_id) references
 mst_roles(id);
 
+create table tbl_salary(id serial primary key, user_id bigint unsigned,
+amount bigint unsigned);
+
+alter table tbl_salary add foreign key (user_id) references tbl_employees_daily_activities(user_id);
+
 insert into tbl_users(username, password, email,role_id, status)
 values('admin','$2a$10$F4O3kX4K4aYk2eytHvnQCuQGx9pCAE2V2OxDpmhS18Of/XXnlHM16',
 'reganshakya@gmail.com',1,1);
@@ -50,5 +55,21 @@ insert into tbl_users(username, password, email,role_id, status)
 values('regan','$2a$10$F4O3kX4K4aYk2eytHvnQCuQGx9pCAE2V2OxDpmhS18Of/XXnlHM16',
 'regan_shakya@gmail.com',1,1);
 
+-- Query for making salary table
+SELECT u.user_id, a.username, SUM(u.amount) FROM tbl_employees_daily_activities
+    u inner join tbl_users a on a.id=u.user_id GROUP BY u.user_id;
 
-SELECT u.employee_id, a.first_Name, SUM(u.amount) FROM tbl_employees_daily_activities u inner join tbl_employees a on a.id=u.employee_id GROUP BY u.employee_id
+-- Query for selecting activity of specified users
+select * from tbl_employees_daily_activities a inner join tbl_users e
+     on e.id=a.user_id where e.username="SitaRam";
+
+-- Query for selecting salary of specified users
+SELECT u.user_id, u.username, u.amount FROM 
+    (SELECT u.user_id, a.username, SUM(u.amount) as amount FROM 
+    tbl_employees_daily_activities u inner join tbl_users a on a.id=u.user_id GROUP BY u.user_id )
+     u where u.username="SitaRam"
+
+
+insert into tbl_salary(user_id,username,amount) SELECT u.user_id, a.username, SUM(u.amount) as amount FROM tbl_employees_daily_activities u inner join tbl_users a on a.id=u.user_id GROUP BY u.user_id
+
+

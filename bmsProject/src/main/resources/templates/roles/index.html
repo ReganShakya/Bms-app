@@ -2,7 +2,7 @@
 
 <div class="box">
     <div class="box-header with-border">
-        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
+        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Add new Role">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -21,10 +21,10 @@
                     <td th:text="${record.id}"></td>
                     <td th:text="${record.name}"></td>
                     <td>
-                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" class="btn btn-warning btn-xs" title="Edit Task">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" title="Edit Role">
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs" title="Delete Task">
+                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" title="Remove Role">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </td>

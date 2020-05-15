@@ -14,7 +14,7 @@
 
 <div class="box">
     <div class="box-header with-border">
-        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
+        <a  th:href="@{'/'+${pageURI}+'/create'}" title="Create new Details">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -38,23 +38,22 @@
                     <td th:text="${activity.id}"></td>
                     <td th:text="${activity.workingDate}"></td>
                     <td><table><tr>
-                                <td th:text="${activity.employee.firstName}"></td>
-                                <!--<td th:text="${activity.employee.lastName}"></td>-->
+                                <td th:text="${activity.user.firstName}"></td>
+                                <!--<td th:text="${activity.user.lastName}"></td>-->
                             </tr></table></td>
                     <td th:text="${activity.task.name}"></td>
                     <td th:text="${activity.task.rate}"></td>
                     <td th:text="${activity.quantity}"></td>
                     <td th:text="${activity.amount}"></td>
                     <td>
-                        <a th:href="@{'/'+${pageURI}+'/edit/'+${activity.id}}" class="btn btn-warning btn-xs" title="Edit Task">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${activity.id}}" title="Edit Details">
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a th:href="@{'/'+${pageURI}+'/delete/'+${activity.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs" title="Delete Task">
-                            <span class="glyphicon glyphicon-trash"></span>
+                        <a sec:authorize='hasRole("ROLE_ADMIN")' th:href="@{'/'+${pageURI}+'/delete/'+${activity.id}}" onclick="return confirm('Are you sure to delete?')" title="Delete">
+                            <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
                 </tr>
-                </c:forEach>
             </tbody>
         </table>
     </div>

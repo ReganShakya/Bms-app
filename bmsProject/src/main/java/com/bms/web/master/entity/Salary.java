@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,47 +11,41 @@ package com.bms.web.master.entity;
  * @author regan
  */
 public class Salary{
-    private int employeeId;
-    private String firstName;
+    private int userId;
+    private String userName;
     private long amount;
 
     public Salary() {
     }
 
-    public Salary(int employeeId, long amount) {
-        this.employeeId = employeeId;
+    public Salary(int userId, String userName, long amount) {
+        this.userId = userId;
+        this.userName = userName;
         this.amount = amount;
     }
 
-    public Salary(int employeeId, String firstName, long amount) {
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.amount = amount;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public long getAmount() {
         return amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
-    }
-    
-        
+    }        
 }
+

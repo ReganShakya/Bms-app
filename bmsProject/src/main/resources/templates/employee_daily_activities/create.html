@@ -6,9 +6,10 @@
         <div class="box-body">
             <div class="form-group">
                 <label>Employee Name</label>
-                <select name="employee" class="form-control" required/>
-                <option value="">Select Name</option>
-                <option th:each="emp:${emps}" th:value="${emp.id}" th:text="${emp.firstName}">Select Employee Name</option>
+                <select name="user" class="form-control" required/>
+                <!--<option th:text="${#authentication.name}">Select Employee Name</option>-->  
+                <option sec:authorize='hasRole("ROLE_USER")' th:text="${user.userName}" th:value='${user.id}'>Select Name</option>                
+                <option sec:authorize='hasRole("ROLE_ADMIN")' th:each="emp:${emps}" th:value="${emp.id}" th:text="${emp.userName}">Select Employee Name</option>
                 </select>
             </div>
         </div>

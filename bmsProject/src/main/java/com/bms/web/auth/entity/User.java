@@ -28,18 +28,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Table(name="tbl_users")
 public class User extends MasterEntity{
     
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "username")
     private String userName;
     @Column(name = "password")
     private String password;
     @Column(name = "email")
     private String email;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "contact_no")
+    private String contactNo;
+    
+    @Column(name = "role_id",updatable = false, insertable = false)
+    private int roleId;
+    
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     @ManyToOne
     private Role role;
+    
     @Column(name = "created_date", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+    
     @Column(name = "status")
     private boolean status;
     
@@ -48,6 +62,22 @@ public class User extends MasterEntity{
     
     public User(int id) {
         this.id=id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserName() {
@@ -74,6 +104,30 @@ public class User extends MasterEntity{
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+    
     public Role getRole() {
         return role;
     }

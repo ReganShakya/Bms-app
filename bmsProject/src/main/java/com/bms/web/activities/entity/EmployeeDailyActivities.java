@@ -5,8 +5,10 @@
  */
 package com.bms.web.activities.entity;
 
+import com.bms.web.auth.entity.Role;
+import com.bms.web.auth.entity.User;
 import com.bms.web.core.entity.MasterEntity;
-import com.bms.web.master.entity.Employee;
+import com.bms.web.master.entity.Salary;
 import com.bms.web.master.entity.Task;
 import java.util.Date;
 import javax.persistence.Column;
@@ -27,12 +29,19 @@ public class EmployeeDailyActivities extends MasterEntity{
     @Column(name = "working_date",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date workingDate;
-    @JoinColumn(name = "employee_id",referencedColumnName = "id")
-    @ManyToOne
-    private Employee employee;
+//    @JoinColumn(name = "employee_id",referencedColumnName = "id")
+//    @ManyToOne
+//    private Employee employee;
+//    
+//    @Column(name = "employee_id",insertable = false, updatable = false)
+//    private int employeeId;
     
-    @Column(name = "employee_id",insertable = false, updatable = false)
-    private int employeeId;
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @ManyToOne
+    private User user;
+    
+    @Column(name = "user_id",insertable = false, updatable = false)
+    private int userId;
     
     @JoinColumn(name="task_id", referencedColumnName = "id")
     @ManyToOne
@@ -54,14 +63,38 @@ public class EmployeeDailyActivities extends MasterEntity{
         this.workingDate = workingDate;
     }
 
-    public Employee getEmployee() {
-        return employee;
+//    public int getEmployeeId() {
+//        return employeeId;
+//    }
+//
+//    public void setEmployeeId(int employeeId) {
+//        this.employeeId = employeeId;
+//    }
+//
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
+
+    public User getUser() {
+        return user;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
     public Task getTask() {
         return task;
     }
@@ -86,21 +119,11 @@ public class EmployeeDailyActivities extends MasterEntity{
         this.amount = amount;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public int getTaskId() {
         return taskId;
     }
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
-    }
-    
-    
+    }  
 }

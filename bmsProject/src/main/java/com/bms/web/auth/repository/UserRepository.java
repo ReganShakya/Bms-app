@@ -6,6 +6,7 @@
 package com.bms.web.auth.repository;
 
 import com.bms.web.auth.entity.User;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -17,4 +18,5 @@ public interface UserRepository extends
     
     User findByUserName(String username);
     User findByEmail(String email);
+    List<User> findByRoleId(int roleId);
 }

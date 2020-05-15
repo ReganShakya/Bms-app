@@ -6,12 +6,14 @@
 package com.bms.web.controller;
 
 import com.bms.web.activities.repository.EmployeeDailyActivitiesRepository;
+import com.bms.web.auth.repository.UserRepository;
 import com.bms.web.core.controller.SiteController;
-import com.bms.web.master.repository.EmployeeRepository;
+//import com.bms.web.master.repository.EmployeeRepository;
 import com.bms.web.master.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,15 +34,18 @@ public class HomeController extends SiteController{
     @Autowired
     private EmployeeDailyActivitiesRepository activityRepository;
     
+//    @Autowired
+//    private EmployeeRepository empRepository;
+    
     @Autowired
-    private EmployeeRepository empRepository;
+    private UserRepository userRepository;
     
     @Autowired
     private TaskRepository tskRepository;
     
     @GetMapping(value = {"/","index"})
     public String index(Model model){
-        model.addAttribute("employees",empRepository.findAll());
+        model.addAttribute("employees",userRepository.findAll());
         model.addAttribute("dailyActivities", activityRepository.findAll());
         return "dash/index";
     }
@@ -50,6 +55,12 @@ public class HomeController extends SiteController{
         return "dash/index";
     }
     
+//    @GetMapping(value = "/create")
+//    public String create(Model model){
+//        model.addAttribute("user",userRepository.findById(Integer.SIZE))
+//        return "employee_daily_activities/create";
+//    }
+    
 //    @GetMapping(value = "/calendar")
 //    public String calendar(){
 //        return "calendar";
@@ -58,14 +69,23 @@ public class HomeController extends SiteController{
     @GetMapping(value = "/board")
     public String board(Model model){
         model.addAttribute("activities", activityRepository.findAll());
-        model.addAttribute("employees", empRepository.findAll());
+        model.addAttribute("employees", userRepository.findAll());
         model.addAttribute("tsks", tskRepository.findAll());
         return "board";
     }
     
-    @GetMapping(value = "/salary")
-    public String salary(Model model){
+    @RequestMapping(value = "/salary")
+    public String salary(Model model){        
+        String username= "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+          username = ((UserDetails)principal).getUsername();
+        } else {
+          username = principal.toString();
+        }
         model.addAttribute("salaries",activityRepository.getSalary());
+        model.addAttribute("userSalaries",activityRepository.getSalary());
+//        model.addAttribute("userSalaries",activityRepository.getSalaryByUser(username));        
         return "salaries/index";
     }
     

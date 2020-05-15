@@ -2,7 +2,7 @@
 
 <div class="box">
     <div sec:authorize='hasRole("ROLE_ADMIN")' class="box-header with-border">
-        <a th:href="@{'/'+${pageURI}+'/create'}" class="btn btn-primary btn-xs" title="Create new Task">
+        <a th:href="@{'/'+${pageURI}+'/create'}" title="Create new Task">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
@@ -23,10 +23,10 @@
                     <td th:text="${record.name}"></td>
                     <td th:text="${record.rate}"></td>
                     <td sec:authorize='hasRole("ROLE_ADMIN")'>
-                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" class="btn btn-warning btn-xs" title="Edit Task">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                        <a th:href="@{'/'+${pageURI}+'/edit/'+${record.id}}" title="Edit Task">
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-xs" title="Delete Task">
+                        <a th:href="@{'/'+${pageURI}+'/delete/'+${record.id}}" onclick="return confirm('Are you sure to delete?')" title="Delete Task">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </td>
