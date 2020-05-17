@@ -84,8 +84,8 @@ public class HomeController extends SiteController{
           username = principal.toString();
         }
         model.addAttribute("salaries",activityRepository.getSalary());
-        model.addAttribute("userSalaries",activityRepository.getSalary());
-//        model.addAttribute("userSalaries",activityRepository.getSalaryByUser(username));        
+//        model.addAttribute("userSalaries",activityRepository.getSalary());
+        model.addAttribute("userSalaries",activityRepository.getSalaryByUserName(username));        
         return "salaries/index";
     }
     

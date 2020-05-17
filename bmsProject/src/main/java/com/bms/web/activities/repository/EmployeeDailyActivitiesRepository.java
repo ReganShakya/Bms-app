@@ -30,6 +30,10 @@ public interface EmployeeDailyActivitiesRepository extends
     @Query("SELECT e from EmployeeDailyActivities e INNER JOIN User a ON a.id=e.userId WHERE a.userName=?1")
     List<EmployeeDailyActivities> getActivityByUserName(String userName);
     
+    @Query("SELECT new com.bms.web.master.entity.Salary(u.userId, a.userName, SUM(u.amount))"
+            + " FROM EmployeeDailyActivities u INNER JOIN User a ON a.id=u.userId WHERE a.userName=?1")
+    Salary getSalaryByUserName(String userName);
+    
 //    @Query("SELECT new com.bms.web.master.entity.Salary(u.employeeId, SUM(u.amount)) "
 //            + "FROM EmployeeDailyActivities u GROUP BY u.employeeId")
     

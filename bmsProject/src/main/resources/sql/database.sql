@@ -72,4 +72,6 @@ SELECT u.user_id, u.username, u.amount FROM
 
 insert into tbl_salary(user_id,username,amount) SELECT u.user_id, a.username, SUM(u.amount) as amount FROM tbl_employees_daily_activities u inner join tbl_users a on a.id=u.user_id GROUP BY u.user_id
 
+SELECT SUM(amount) AS amount FROM tbl_employees_daily_activities e INNER JOIN tbl_users a ON a.id=e.user_id WHERE a.username="SitaRam"
+
 
